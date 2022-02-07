@@ -123,7 +123,31 @@ public class MyLinkedList<E> implements MyReverseList<E>{
      * TODO: Method header comment here
      */
     public void reverseRegion(int fromIndex, int toIndex){
-        //TODO: Add your solution here
+        if(fromIndex < 0 || toIndex > this.size()){
+            throw new IndexOutOfBoundsException();
+        }
+        if(fromIndex >= toIndex){
+            return;
+        }
+        Node start = this.getNth(fromIndex);
+        Node end = this.getNth(toIndex);
+        Node curr;
+        Node before;
+        for(int i = 1;i < toIndex - fromIndex ; i ++){
+            curr = this.getNth(toIndex - i);
+            before = curr.getPrev();
+            curr.setPrev(curr.getNext());
+            curr.setNext(before);
+        }
+        start.getPrev().setNext(end);
+        end.getNext().setPrev(start);
+        before = start.getPrev();
+        start.setPrev(start.getNext());
+        start.setNext(end.getNext());
+        end.setNext(end.getPrev());
+        end.setPrev(before);
+
+
     }
 
     @Override
@@ -174,4 +198,11 @@ public class MyLinkedList<E> implements MyReverseList<E>{
         return currNode; 
     }
 
+    public void reversePrint(){
+        Node curr = this.getNth(size - 1);
+        for(int i = size - 1; i >= 0; i --){
+            System.out.println("Index " + i + ": " + curr.getElement());
+            curr = curr.getPrev();
+        }
+    }
 }

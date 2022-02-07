@@ -1,8 +1,7 @@
 /**
- * TODO: Add your file header
- * Name:
- * ID:
- * Email:
+ * Name:Dylan Frederick Pingkardi
+ * ID:A15914005
+ * Email:dpingkar@ucsd.edu
  * File description: 
  */
 
@@ -32,12 +31,31 @@ public class MyArrayList<E> implements MyReverseList<E> {
     }
 
     /**
-	 * TODO: Method header comment here
+	 * Method that reverses the elements in the data array, from the given 
+     * staring poinr(fromIndex) to the end(toIndex) including the elements
+     * at the start and end. If any of the given indexes are invalid, 
+     * IndexOutOfBundsException will be thrown. If fromIndex is larger than
+     * toIndex, the data array will be unchanged.
 	 */
     public void reverseRegion(int fromIndex, int toIndex){
-       /**
-        * TODO: Add your solution here
-        */
+        if(fromIndex < 0 || toIndex > this.data.length){
+            throw new IndexOutOfBoundsException();
+        }
+        if(fromIndex >= toIndex){
+            return;
+        }
+        int subtract = 0;
+        Object[] newArray = new Object[data.length];
+        for(int i = 0;i < this.data.length; i ++){
+            if(i < fromIndex || i > toIndex){
+                newArray[i] = data[i];
+            }
+        }
+        for(int i = fromIndex;i <= toIndex;i++){
+            newArray[i] = this.data[toIndex - subtract];
+            subtract ++;
+        }
+        this.data = newArray;
     }
 
     @Override

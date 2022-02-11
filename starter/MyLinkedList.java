@@ -1,13 +1,19 @@
 /**
- * TODO: Add your file header
- * Name:
- * ID:
- * Email:
+ * Name:Dylan Frederick Pingkardi
+ * ID: A15914005
+ * Email:dpingkar@ucsd.edu
  * File description: 
+ * File created to be submitted for midterm of CSE 12. Contains class for
+ * a LinkedList , and a class for Nodes, simplified for the purpose of 
+ * the midterm. Contains only a few methods to be used to help complete
+ * the reverseRegion method. 
  */
 
 /**
- * TODO: Add class header
+ * A simplified MyLinkedList class, with 3 instance variables.
+ * An int for amount of elements,size, a Node to be placed at the start,head,
+ * and a Node to signify the end,tail. Contains a node class inside to be
+ * used to hold elements.
  */
 public class MyLinkedList<E> implements MyReverseList<E>{
 
@@ -120,10 +126,17 @@ public class MyLinkedList<E> implements MyReverseList<E>{
 
 
     /**
-     * TODO: Method header comment here
+     * Method which reverses the order of nodes within a specified range,
+     * as indicated by fromIndex being the start and toIndex being the end.
+     * If any of the given indexes are invalid, IndexOutOfBundsException 
+     * will be thrown. If fromIndex is larger than toIndex, 
+     * the data array will be unchanged.
+     * @param fromIndex Int to specify starting index 
+     * @param toIndex Int to specify ending index
      */
     public void reverseRegion(int fromIndex, int toIndex){
-        if(fromIndex < 0 || toIndex > this.size()){
+        if(fromIndex < 0 || toIndex < 0 || fromIndex >= this.size()
+                || toIndex >= this.size()){
             throw new IndexOutOfBoundsException();
         }
         if(fromIndex >= toIndex){
@@ -133,14 +146,18 @@ public class MyLinkedList<E> implements MyReverseList<E>{
         Node end = this.getNth(toIndex);
         Node curr;
         Node before;
+        // Switches around the nodes in between start and end
         for(int i = 1;i < toIndex - fromIndex ; i ++){
             curr = this.getNth(toIndex - i);
             before = curr.getPrev();
             curr.setPrev(curr.getNext());
             curr.setNext(before);
         }
+        //Changes to the next and prev of nodes before the start and after end
         start.getPrev().setNext(end);
         end.getNext().setPrev(start);
+
+         //Changes the next and prev of start and end nodes
         before = start.getPrev();
         start.setPrev(start.getNext());
         start.setNext(end.getNext());

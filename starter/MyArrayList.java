@@ -3,10 +3,17 @@
  * ID:A15914005
  * Email:dpingkar@ucsd.edu
  * File description: 
+ * File created to be submitted for midterm of CSE 12. Contains class for
+ * an ArrayList , simplified for the purpose of the midterm. Contains only a 
+ * few methods, only a constructor, a getter for size, a getter for an 
+ * element in the data array, and a method to reverse elements within a 
+ * specified region and to be completed for the midterm.
  */
 
 /**
- * TODO: Add class header
+ * A simplified ArrayList class which contains only a few methods. 
+ * Has 2 instance variables, an Object array called data and an integer 
+ * called size, which is the amount of valid elements in the data array.
  */
 public class MyArrayList<E> implements MyReverseList<E> {
     static final int DEFAULT_CAPACITY = 5;
@@ -36,21 +43,26 @@ public class MyArrayList<E> implements MyReverseList<E> {
      * at the start and end. If any of the given indexes are invalid, 
      * IndexOutOfBundsException will be thrown. If fromIndex is larger than
      * toIndex, the data array will be unchanged.
+     * @param fromIndex Int to specify starting index 
+     * @param toIndex Int to specify ending index
 	 */
     public void reverseRegion(int fromIndex, int toIndex){
-        if(fromIndex < 0 || toIndex > this.data.length){
+        if(fromIndex < 0 || toIndex < 0 || fromIndex >= this.data.length 
+                || toIndex >= this.data.length){
             throw new IndexOutOfBoundsException();
         }
         if(fromIndex >= toIndex){
             return;
         }
         int subtract = 0;
+        //Copies unchanged elements to newArray
         Object[] newArray = new Object[data.length];
         for(int i = 0;i < this.data.length; i ++){
             if(i < fromIndex || i > toIndex){
                 newArray[i] = data[i];
             }
         }
+        //Reverses elements within specified range
         for(int i = fromIndex;i <= toIndex;i++){
             newArray[i] = this.data[toIndex - subtract];
             subtract ++;
